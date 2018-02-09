@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>BPM Counter</title>
+
+  <style type="text/css">
+
+    html {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: #242527;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #btn {
+      cursor: pointer;
+      position: relative;
+      width: 140px;
+      height: 140px;
+      line-height: 35px;
+      background: #25292C;
+      text-align: center;
+      border-radius: 999px;
+      color: rgba(155,155,155,1);
+      text-shadow: -1px -1px 0px rgba(255,255,255,0.8), 1px 1px 2px rgba(0,0,0,1);
+      font-size: 2em;
+      font-family: sans-serif;
+      box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
+                  inset 3px 15px 45px rgba(255,255,255,0.1),
+                  inset -1px -1px 2px rgba(0,0,0,0.5), 
+                  inset -3px -15px 45px rgba(0,0,0,0.2),
+                  1px 5px 30px -4px rgba(0,0,0,1);
+      transition:         0.1s ease-out;
+      -webkit-user-select: none;
+      -moz-user-select:    none;
+      -ms-user-select:     none;
+      user-select:         none;
+    }
+
+    #btn:before {
+      content: "";
+      background: #1A1A1A;
+      width: 170px;
+      height: 170px;
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      z-index: -1;
+      border-radius: 50%;
+      box-shadow: inset -1px -1px 2px rgba(255,255,255,0.3), 
+        inset -5px -15px 40px rgba(255,255,255,0.1),
+        inset 1px 1px 2px rgba(0,0,0,0.5), 
+        inset 5px 15px 40px rgba(0,0,0,0.2),
+        -2px -40px 50px -20px rgba(255,255,255,0.1),
+        2px 35px 50px -10px rgba(0,0,0,0.4),
+        0px 0px 25px 8px rgba(60,60,60,1);
+    }
+
+  @media (min-width: 576px) {
+      #btn:active {
+        color: rgba(0,0,0,0.7);
+        text-shadow: 1px 1px 0px rgba(255,255,255,0.15);
+        box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), 
+                    inset 3px 15px 45px rgba(0,0,0,0.2),
+                    inset -1px -1px 2px rgba(0,0,0,0.5), 
+                    inset -3px -15px 45px rgba(255,255,255,0.1),
+                    1px 5px 10px -4px rgba(0,0,0,1);
+      }
+    }
+
+    #initial {
+      position: relative;
+      top: 15px;
+      pointer-events: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="btn"><span id="initial">Tap<br>to see<br>BPM</span></div>
+
+  <script type="text/javascript">
+    var $tap = document.getElementById("btn");
+    var beats = -1;
+    var timeInitial = 0;
+    var time = 0;
+    var bpm = 0;
+
+    function round(value, decimals) {
+      return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    }
+
+    document.documentElement.onclick = function() {
+      if (beats != -1) {
+        beats = -1;
+        timeInitial = 0;
+        time = 0;
+        bpm = 0;
+        $tap.style.fontSize = "5em";
+        $tap.innerHTML = "&times;";
+      }
+    }
+
+    $tap.onclick = function(e) {
+      e.stopPropagation();
+
+      if (timeInitial == 0) {
+        timeInitial = new Date().getTime();
+        $tap.style.lineHeight = "140px";
+        $tap.style.fontSize = "4em";
+      }
+
+      time = (new Date().getTime() - timeInitial) / 1000;
+      beats++;
+
+      if (beats > 0) {
+        bpm = round(beats / (time / 60), 0);
+      }
+
+      $tap.innerHTML = bpm;
+      console.log(time, beats, round(time / beats, 3));
+    }
+  </script>
+</body>
+</html>
