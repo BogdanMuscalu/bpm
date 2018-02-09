@@ -3,15 +3,15 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.boxingcombo"
+        id        = "com.phonegap.bpm"
       versionCode = "1"
         version   = "1.0.0">
 <!-- versionCode is optional and Android only -->
 
-    <name>Combinatii Brate</name>
+    <name>BPM Counter</name>
 
     <description>
-        O aplicatie care iti zice combinatii aleatoare de brate.
+        An app that counts beats per minute when you tap the screen.
     </description>
 
     <author href="http://bog-com.stackstaging.com" email="bogmuscalu@gmail.com">
@@ -19,7 +19,5 @@
     </author>
 
     <preference name="windows-appx-target" value="8.1-phone" />
-
-    <icon src="icon.png" />
 
 </widget>
